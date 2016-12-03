@@ -1,0 +1,537 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.mozovw.ssm.mybatis.mysql.noannotation.dao.impl.NoAnnotaionDao">
+	<!-- <insert id="addEmp" keyProperty="empno" parameterType="com.tarena.entity.Emp" 
+		> <selectKey keyProperty="empno" resultType="int" order="BEFORE"> select 
+		seq_z_emp.nextval from dual </selectKey> insert into z_emp(empno,ename,mgr,hiredate,sal,comm,deptno) 
+		values (#{empno},#{ename},#{mgr},#{hiredate},#{sal},#{comm},#{deptno}) </insert> -->
+
+	<select id="findEmpByName" resultType="map" 
+			parameterType="string">
+		select * from emp where name like concat('%',#{name},'%')
+	</select>
+	 <select id="findAllEmp" resultType="com.mozovw.ssm.core.common.entity.EmpEntity">
+		select * from emp
+	</select>
+
+	<!--<resultMap id="deptMap" type="com.mozovw.ssm.core.common.entity.DeptEntity">
+		<result property="dname" column="dname" />
+		<collection property="emps" ofType="com.mozovw.ssm.core.common.entity.EmpEntity"
+			resultMap="empMap" />
+	</resultMap>
+	<resultMap id="empMap" type="com.mozovw.ssm.core.common.entity.EmpEntity">
+		<result property="name" column="name" />
+	</resultMap>
+
+
+	<select id="findDeptsByName" resultMap="deptMap">
+		select d.deptno, d.dname,
+		d.loc ,
+		e.id, e.name, e.gender, e.birth, e.hiredate,
+		e.salary, e.comm, e.job, e.pid, e.manager, e.deptno, e.rest
+		from dept d
+		left join emp e
+		on e.deptno = d.deptno
+		where dname = #{dname}
+	</select>
+
+
+	<resultMap id="emp2Map" type="com.mozovw.ssm.core.common.entity.EmpEntity">
+		<result property="name" column="name" />
+		<association property="dept" javaType="com.mozovw.ssm.core.common.entity.DeptEntity"
+			resultMap="dept2Map" />
+		<collection property="dept" ofType="com.mozovw.ssm.core.common.entity.DeptEntity" resultMap="dept2Map"/>
+		association 适合一对一 ， collection 适合一对多，且一对一
+	</resultMap>
+
+	<resultMap id="dept2Map" type="com.mozovw.ssm.core.common.entity.DeptEntity">
+		<result property="dname" column="dname" />
+	</resultMap>
+
+	<select id="findEmpOfDeptByName" resultMap="emp2Map">
+		select d.deptno,
+		d.dname, d.loc ,
+		e.id, e.name, e.gender, e.birth, e.hiredate,
+		e.salary, e.comm, e.job, e.pid, e.manager, e.deptno, e.rest
+		from dept d
+		left join emp e
+		on e.deptno = d.deptno
+		where e.name = #{name}
+	</select>
+
+	<insert id="addEmps" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index"
+			separator=";" open="begin" close=";end;">
+			insert into emp
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="item.id!=null and item.id!=''">
+					id,
+				</if>
+				<if test="item.name!=null and item.name!=''">
+					name,
+				</if>
+				<if test="item.gender!=null and item.gender!=''">
+					gender,
+				</if>
+				<if test="item.birth!=null and item.birth!=''">
+					birth,
+				</if>
+				<if test="item.hiredate!=null and item.hiredate!=''">
+					hiredate,
+				</if>
+				<if test="item.salary!=null and item.salary!=''">
+					salary,
+				</if>
+				<if test="item.comm!=null and item.comm!=''">
+					comm,
+				</if>
+				<if test="item.job!=null and item.job!=''">
+					job,
+				</if>
+				<if test="item.pid!=null and item.pid!=''">
+					pid,
+				</if>
+				<if test="item.manager!=null and item.manager!=''">
+					manager,
+				</if>
+				<if test="item.deptno!=null and item.deptno!=''">
+					deptno,
+				</if>
+				<if test="item.rest!=null and item.rest!=''">
+					rest,
+				</if>
+			</trim>
+			<trim prefix="values(" suffix=")" suffixOverrides=",">
+				<if test="item.id!=null and item.id!=''">
+					emp_guid('emp','id'),
+				</if>
+				<if test="item.name!=null and item.name!=''">
+					#{item.name},
+				</if>
+				<if test="item.gender!=null and item.gender!=''">
+					#{item.gender},
+				</if>
+				<if test="item.birth!=null and item.birth!=''">
+					to_date(#{item.birth},'yyyy-mm-dd'),
+				</if>
+				<if test="item.hiredate!=null and item.hiredate!=''">
+					to_date(#{item.hiredate},'yyyy-mm-dd'),
+				</if>
+				<if test="item.salary!=null and item.salary!=''">
+					#{item.salary},
+				</if>
+				<if test="item.comm!=null and item.comm!=''">
+					#{item.comm},
+				</if>
+				<if test="item.job!=null and item.job!=''">
+					#{item.job},
+				</if>
+				<if test="item.pid!=null and item.pid!=''">
+					#{item.pid},
+				</if>
+				<if test="item.manager!=null and item.manager!=''">
+					#{item.manager},
+				</if>
+				<if test="item.deptno!=null and item.deptno!=''">
+					#{item.deptno},
+				</if>
+				<if test="item.rest!=null and item.rest!=''">
+					#{item.rest},
+				</if>
+			</trim>
+		</foreach>
+	</insert>
+
+	<insert id="addEmps2" parameterType="java.util.List">
+		insert into emp(
+		id, name, gender, birth, hiredate, salary, comm,
+		job, pid, manager,
+		deptno, rest)
+		<foreach item="item" index="index" collection="list" open="("
+			separator="union all" close=")">
+			select
+			#{item.id},#{item.name},#{item.gender},to_date(#{item.birth},'yyyy-mm-dd'),
+			to_date(#{item.hiredate},'yyyy-mm-dd'),#{item.salary},#{item.comm},#{item.job},
+			#{item.pid},#{item.manager},#{item.deptno},#{item.rest}
+			from dual
+		</foreach>
+	</insert>
+
+
+
+	<update id="updateEmps" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index"
+			separator=";" open="begin" close=";end;">
+			update emp
+			<set>
+				<if test="item.id!=null and item.id!=''">
+					id=#{item.id},
+				</if>
+				<if test="item.name!=null and item.name!=''">
+					name=#{item.name},
+				</if>
+				<if test="item.gender!=null and item.gender!=''">
+					gender=#{item.gender},
+				</if>
+				<if test="item.birth!=null and item.birth!=''">
+					birth=to_date(#{item.birth},'yyyy-mm-dd'),
+				</if>
+				<if test="item.hiredate!=null and item.hiredate!=''">
+					hiredate=to_date(#{item.hiredate},'yyyy-mm-dd'),
+				</if>
+				<if test="item.salary!=null and item.salary!=''">
+					salary=#{item.salary},
+				</if>
+				<if test="item.comm!=null and item.comm!=''">
+					comm=#{item.comm},
+				</if>
+				<if test="item.job!=null and item.job!=''">
+					job=#{item.job},
+				</if>
+				<if test="item.pid!=null and item.pid!=''">
+					pid=#{item.pid},
+				</if>
+				<if test="item.manager!=null and item.manager!=''">
+					manager=#{item.manager},
+				</if>
+				<if test="item.deptno!=null and item.deptno!=''">
+					deptno=#{item.deptno},
+				</if>
+				<if test="item.rest!=null and item.rest!=''">
+					rest=#{item.rest},
+				</if>
+			</set>
+			<where>
+				<if test="item.id!=null and item.id!=''">
+					and id=#{item.id}
+				</if>
+				<if test="item.name!=null and item.name!=''">
+					and name=#{item.name}
+				</if>
+				<if test="item.gender!=null and item.gender!=''">
+					and gender=#{item.gender}
+				</if>
+				<if test="item.birth!=null and item.birth!=''">
+					and birth=to_date(#{item.birth},'yyyy-mm-dd')
+				</if>
+				<if test="item.hiredate!=null and item.hiredate!=''">
+					and hiredate=to_date(#{item.hiredate},'yyyy-mm-dd')
+				</if>
+				<if test="item.salary!=null and item.salary!=''">
+					and salary=#{item.salary}
+				</if>
+				<if test="item.comm!=null and item.comm!=''">
+					and comm=#{item.comm}
+				</if>
+				<if test="item.job!=null and item.job!=''">
+					and job=#{item.job}
+				</if>
+				<if test="item.pid!=null and item.pid!=''">
+					and pid=#{item.pid}
+				</if>
+				<if test="item.manager!=null and item.manager!=''">
+					and manager=#{item.manager}
+				</if>
+				<if test="item.deptno!=null and item.deptno!=''">
+					and deptno=#{item.deptno}
+				</if>
+				<if test="item.rest!=null and item.rest!=''">
+					and rest=#{item.rest}
+				</if>
+			</where>
+		</foreach>
+	</update>
+
+
+
+	<update id="updateEmp">
+		update emp
+		<set>
+			<if test="name!=null and name!=''">
+				name=#{name},
+			</if>
+			<if test="gender!=null and gender!=''">
+				gender=#{gender},
+			</if>
+			<if test="birth!=null and birth!=''">
+				birth=to_date(#{birth},'yyyy-mm-dd'),
+			</if>
+			<if test="hiredate!=null and hiredate!=''">
+				hiredate=to_date(#{hiredate},'yyyy-mm-dd'),
+			</if>
+			<if test="salary!=null and salary!=''">
+				salary=#{salary},
+			</if>
+			<if test="comm!=null and comm!=''">
+				comm=#{comm},
+			</if>
+			<if test="job!=null and job!=''">
+				job=#{job},
+			</if>
+			<if test="pid!=null and pid!=''">
+				pid=#{pid},
+			</if>
+			<if test="manager!=null and manager!=''">
+				manager=#{manager},
+			</if>
+			<if test="deptno!=null and deptno!=''">
+				deptno=#{deptno},
+			</if>
+			<if test="rest!=null and rest!=''">
+				rest=#{rest},
+			</if>
+		</set>
+		<where>
+			<if test="id!=null and id!=''">
+				and id=#{id}
+			</if>
+			<if test="name!=null and name!=''">
+				and name=#{name}
+			</if>
+			<if test="gender!=null and gender!=''">
+				and gender=#{gender}
+			</if>
+			<if test="birth!=null and birth!=''">
+				and birth=to_date(#{birth},'yyyy-mm-dd')
+			</if>
+			<if test="hiredate!=null and hiredate!=''">
+				and hiredate=to_date(#{hiredate},'yyyy-mm-dd')
+			</if>
+			<if test="salary!=null and salary!=''">
+				and salary=#{salary}
+			</if>
+			<if test="comm!=null and comm!=''">
+				and comm=#{comm}
+			</if>
+			<if test="job!=null and job!=''">
+				and job=#{job}
+			</if>
+			<if test="pid!=null and pid!=''">
+				and pid=#{pid}
+			</if>
+			<if test="manager!=null and manager!=''">
+				and manager=#{manager}
+			</if>
+			<if test="deptno!=null and deptno!=''">
+				and deptno=#{deptno}
+			</if>
+			<if test="rest!=null and rest!=''">
+				and rest=#{rest}
+			</if>
+		</where>
+	</update>
+
+
+
+	<update id="mergeEmp">
+		merge into emp a using (select #{id} col from dual) b
+		on (a.id =
+		b.col) when matched then update
+		<trim prefix="set" suffix="" suffixOverrides=",">
+			<if test="name!=null and name!=''">
+				name=#{name},
+			</if>
+			<if test="gender!=null and gender!=''">
+				gender=#{gender},
+			</if>
+			<if test="birth!=null and birth!=''">
+				birth=to_date(#{birth},'yyyy-mm-dd'),
+			</if>
+			<if test="hiredate!=null and hiredate!=''">
+				hiredate=to_date(#{hiredate},'yyyy-mm-dd'),
+			</if>
+			<if test="salary!=null and salary!=''">
+				salary=#{salary},
+			</if>
+			<if test="comm!=null and comm!=''">
+				comm=#{comm},
+			</if>
+			<if test="job!=null and job!=''">
+				job=#{job},
+			</if>
+			<if test="pid!=null and pid!=''">
+				pid=#{pid},
+			</if>
+			<if test="manager!=null and manager!=''">
+				manager=#{manager},
+			</if>
+			<if test="deptno!=null and deptno!=''">
+				deptno=#{deptno},
+			</if>
+			<if test="rest!=null and rest!=''">
+				rest=#{rest},
+			</if>
+		</trim>
+		when not matched then
+		insert
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id!=null and id!=''">
+				id,
+			</if>
+			<if test="name!=null and name!=''">
+				name,
+			</if>
+			<if test="gender!=null and gender!=''">
+				gender,
+			</if>
+			<if test="birth!=null and birth!=''">
+				birth,
+			</if>
+			<if test="hiredate!=null and hiredate!=''">
+				hiredate,
+			</if>
+			<if test="salary!=null and salary!=''">
+				salary,
+			</if>
+			<if test="comm!=null and comm!=''">
+				comm,
+			</if>
+			<if test="job!=null and job!=''">
+				job,
+			</if>
+			<if test="pid!=null and pid!=''">
+				pid,
+			</if>
+			<if test="manager!=null and manager!=''">
+				manager,
+			</if>
+			<if test="deptno!=null and deptno!=''">
+				deptno,
+			</if>
+			<if test="rest!=null and rest!=''">
+				rest,
+			</if>
+		</trim>
+		<trim prefix="values(" suffix=")" suffixOverrides=",">
+			<if test="id!=null and id!=''">
+				#{id},
+			</if>
+			<if test="name!=null and name!=''">
+				#{name},
+			</if>
+			<if test="gender!=null and gender!=''">
+				#{gender},
+			</if>
+			<if test="birth!=null and birth!=''">
+				to_date(#{birth},'yyyy-mm-dd'),
+			</if>
+			<if test="hiredate!=null and hiredate!=''">
+				to_date(#{hiredate},'yyyy-mm-dd'),
+			</if>
+			<if test="salary!=null and salary!=''">
+				#{salary},
+			</if>
+			<if test="comm!=null and comm!=''">
+				#{comm},
+			</if>
+			<if test="job!=null and job!=''">
+				#{job},
+			</if>
+			<if test="pid!=null and pid!=''">
+				#{pid},
+			</if>
+			<if test="manager!=null and manager!=''">
+				#{manager},
+			</if>
+			<if test="deptno!=null and deptno!=''">
+				#{deptno},
+			</if>
+			<if test="rest!=null and rest!=''">
+				#{rest},
+			</if>
+		</trim>
+	</update>
+
+
+
+
+
+	<insert id="addEmp">
+		insert into emp
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id!=null and id!=''">
+				id,
+			</if>
+			<if test="name!=null and name!=''">
+				name,
+			</if>
+			<if test="gender!=null and gender!=''">
+				gender,
+			</if>
+			<if test="birth!=null and birth!=''">
+				birth,
+			</if>
+			<if test="hiredate!=null and hiredate!=''">
+				hiredate,
+			</if>
+			<if test="salary!=null and salary!=''">
+				salary,
+			</if>
+			<if test="comm!=null and comm!=''">
+				comm,
+			</if>
+			<if test="job!=null and job!=''">
+				job,
+			</if>
+			<if test="pid!=null and pid!=''">
+				pid,
+			</if>
+			<if test="manager!=null and manager!=''">
+				manager,
+			</if>
+			<if test="deptno!=null and deptno!=''">
+				deptno,
+			</if>
+			<if test="rest!=null and rest!=''">
+				rest,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id!=null and id!=''">
+				#{id},
+			</if>
+			<if test="name!=null and name!=''">
+				#{name},
+			</if>
+			<if test="gender!=null and gender!=''">
+				#{gender},
+			</if>
+			<if test="birth!=null and birth!=''">
+				to_date(#{birth},'yyyy-mm-dd'),
+			</if>
+			<if test="hiredate!=null and hiredate!=''">
+				to_date(#{hiredate},'yyyy-mm-dd'),
+			</if>
+			<if test="salary!=null and salary!=''">
+				#{salary},
+			</if>
+			<if test="comm!=null and comm!=''">
+				#{comm},
+			</if>
+			<if test="job!=null and job!=''">
+				#{job},
+			</if>
+			<if test="pid!=null and pid!=''">
+				#{pid},
+			</if>
+			<if test="manager!=null and manager!=''">
+				#{manager},
+			</if>
+			<if test="deptno!=null and deptno!=''">
+				#{deptno},
+			</if>
+			<if test="rest!=null and rest!=''">
+				#{rest},
+			</if>
+		</trim>
+	</insert> -->
+
+
+
+
+
+
+</mapper>

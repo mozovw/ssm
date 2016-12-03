@@ -1,0 +1,33 @@
+-- emp
+
+CREATE TABLE emp ( id decimal(4,0) NOT NULL , name varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL , gender char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL , birth date NULL DEFAULT NULL , hiredate date NULL DEFAULT NULL , salary decimal(7,2) NULL DEFAULT NULL , comm decimal(7,2) NULL DEFAULT NULL , job varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL , pid char(18) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL , manager decimal(4,0) NULL DEFAULT NULL , deptno decimal(2,0) NULL DEFAULT NULL , rest char(5) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL , PRIMARY KEY (id) ) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=COMPACT ;
+
+insert into emp (ID, NAME, GENDER, BIRTH, HIREDATE, SALARY, comm, JOB, PID, MANAGER, DEPTNO, REST) values (1001, 'rose', 'M', null, STR_TO_DATE('29-09-2015 14:09:19', '%d-%m-%Y %H:%i:%s'), 6500.00, null, 'PROGRA%mER', '130104198206291111', null, 10, '12:20');
+
+insert into emp (ID, NAME, GENDER, BIRTH, HIREDATE, SALARY, comm, JOB, PID, MANAGER, DEPTNO, REST) values (1002, 'martha', 'F', STR_TO_DATE('01-09-1989', '%d-%m-%Y'), STR_TO_DATE('27-03-2000', '%d-%m-%Y'), 3400.00, null, 'ANALYST', '110105198802211121', 1006, 10, null);
+
+insert into emp (ID, NAME, GENDER, BIRTH, HIREDATE, SALARY, comm, JOB, PID, MANAGER, DEPTNO, REST) values (1003, 'donna', 'F', STR_TO_DATE('01-09-1978', '%d-%m-%Y'), STR_TO_DATE('10-05-2005', '%d-%m-%Y'), 6800.00, null, 'ANALYST', null, null, 11, null);
+
+insert into emp (ID, NAME, GENDER, BIRTH, HIREDATE, SALARY, comm, JOB, PID, MANAGER, DEPTNO, REST) values (1004, '马里奥', 'M', null, STR_TO_DATE('25-06-2010', '%d-%m-%Y'), 4120.00, null, 'CLERK', '110107199002211131', 1005, 20, null);
+
+insert into emp (ID, NAME, GENDER, BIRTH, HIREDATE, SALARY, comm, JOB, PID, MANAGER, DEPTNO, REST) values (1005, 'scott', 'M', null, STR_TO_DATE('21-10-2011', '%d-%m-%Y'), 4620.00, 2500.00, 'SALESMAN', null, null, 20, null);
+
+insert into emp (ID, NAME, GENDER, BIRTH, HIREDATE, SALARY, comm, JOB, PID, MANAGER, DEPTNO, REST) values (1006, 'scott', 'M', STR_TO_DATE('20-07-1979', '%d-%m-%Y'), STR_TO_DATE('11-11-2012', '%d-%m-%Y'), 4260.00, 1000.00, 'SALESMAN', null, 1001, 10, null);
+
+insert into emp (ID, NAME, GENDER, BIRTH, HIREDATE, SALARY, comm, JOB, PID, MANAGER, DEPTNO, REST) values (1007, 'eric', 'M', STR_TO_DATE('26-12-1983', '%d-%m-%Y'), STR_TO_DATE('27-03-2002', '%d-%m-%Y'), 2800.00, null, 'CLERK', null, null, null, null);
+
+insert into emp (ID, NAME, GENDER, BIRTH, HIREDATE, SALARY, comm, JOB, PID, MANAGER, DEPTNO, REST) values (1008, '李四', 'M', STR_TO_DATE('10-02-1985', '%d-%m-%Y'), STR_TO_DATE('11-11-2012', '%d-%m-%Y'), 4560.00, null, 'PROGRA%mER', null, null, 10, null);
+
+insert into emp (ID, NAME, GENDER, BIRTH, HIREDATE, SALARY, comm, JOB, PID, MANAGER, DEPTNO, REST) values (1009, '王五', 'M', STR_TO_DATE('11-05-1980', '%d-%m-%Y'), STR_TO_DATE('11-11-2012', '%d-%m-%Y'), 6120.00, null, 'MANAGER', null, null, 20, null);
+
+-- dept
+
+CREATE TABLE dept ( deptno decimal(4,0) NOT NULL , dname varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL , loc varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL , PRIMARY KEY (deptno) ) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=COMPACT ;
+
+insert into dept (DEPTNO, DNAME, LOC) values (10, 'RESEARCH', 'DALLAS');
+
+insert into dept (DEPTNO, DNAME, LOC) values (11, 'ACCOUNTING', 'NEW YORK');
+
+insert into dept (DEPTNO, DNAME, LOC) values (20, 'SALES', 'CHICAGO');
+
+insert into dept (DEPTNO, DNAME, LOC) values (51, 'OPERATIONS', 'BOSTON');
