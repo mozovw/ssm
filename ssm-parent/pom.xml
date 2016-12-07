@@ -31,6 +31,7 @@
 
 		<module>ssm-mybatis-mysql</module>
 		<module>ssm-core</module>
+		<module>ssm-mybatis-oracle</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>
@@ -47,6 +48,11 @@
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>ssm-mybatis-mysql</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>ssm-mybatis-oracle</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
@@ -194,13 +200,13 @@
 				<artifactId>slf4j-log4j12</artifactId>
 				<version>${slf4j.version}</version>
 			</dependency>
-			<!-- common-logging 实际调用slf4j -->
+			<!-- common-logging 瀹為檯璋冪敤slf4j -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>jcl-over-slf4j</artifactId>
 				<version>${slf4j.version}</version>
 			</dependency>
-			<!-- java.util.logging 实际调用slf4j -->
+			<!-- java.util.logging 瀹為檯璋冪敤slf4j -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>jul-to-slf4j</artifactId>
