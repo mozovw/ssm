@@ -2,8 +2,14 @@ package com.mozovw.ssm.core.common.entity;
 
 import java.util.List;
 
-public class DeptEntity {
+import com.mozovw.ssm.core.base.entity.BaseEntity;
 
+public class DeptEntity extends BaseEntity{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6257430642393651369L;
 	private String deptno;   //NUMBER
 	private String dname;   //VARCHAR2
 	private String loc;   //VARCHAR2
