@@ -10,6 +10,7 @@ import com.mozovw.ssm.core.common.entity.EmpEntity;
 
 @MybaitsDao
 public interface AnnotaionDao {
+	//注释
 	public Map  findEmpByName(String name); 
 	public List<EmpEntity> findAllEmp();
 	/*public List<DeptEntity> findDeptsByName(String dname);
