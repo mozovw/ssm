@@ -1,7 +1,13 @@
 package com.mozovw.ssm.core.common.entity;
 
+import com.mozovw.ssm.core.base.entity.BaseEntity;
 
-public class EmpEntity {
+
+public class EmpEntity extends BaseEntity{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7249180765772902893L;
 	private String id; // NUMBER
 	private String name; // VARCHAR2
 	private String gender; // CHAR
