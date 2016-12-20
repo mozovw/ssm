@@ -14,8 +14,7 @@ import com.mozovw.ssm.mybatis.mysql.noannotation.service.INoAnnotaionService;
 
 
 public class NoAnnotaionTest {
-	
-	String cfg = "com/mozovw/ssm/mybatis/mysql/noannotation/config/spring-context.xml";
+	String cfg = "com/mozovw/ssm/mybatis/mysql/ssm/configs/spring-noannotaion.xml";
 	ApplicationContext ctx = new ClassPathXmlApplicationContext(cfg);
 	
 	INoAnnotaionService noAnnotaionService 
@@ -29,7 +28,7 @@ public class NoAnnotaionTest {
 	}
 	@Test
 	public void test(){
-		System.out.println(123);
+		System.out.println(noAnnotaionDao);
 	}
 	
 	@Test

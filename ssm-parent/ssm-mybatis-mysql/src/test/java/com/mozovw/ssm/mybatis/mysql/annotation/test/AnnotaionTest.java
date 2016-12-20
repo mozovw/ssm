@@ -16,19 +16,13 @@ import com.mozovw.ssm.mybatis.mysql.annotation.dao.AnnotaionDao;
 
 
 @RunWith(JUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:com/mozovw/ssm/mybatis/mysql/annotation/config/spring-context.xml"})
+@ContextConfiguration(locations={"classpath:com/mozovw/ssm/mybatis/mysql/ssm/configs/spring-annotaion.xml"})
 @Transactional
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class AnnotaionTest {
 	
 	@Autowired(required=true)
 	AnnotaionDao annotaionDao ;
-	
-	
-	@Test
-	public void test(){
-		System.out.println(123);
-	}
 	
 	@Test
 	public void testFindAll() throws Exception {
